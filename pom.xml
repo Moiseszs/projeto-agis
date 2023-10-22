@@ -90,6 +90,11 @@
 			<version>3.1.1</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -106,6 +111,12 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-site-plugin</artifactId>
+   			 	<version>4.0.0-M11</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
