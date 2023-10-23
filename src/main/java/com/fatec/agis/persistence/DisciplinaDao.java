@@ -1,5 +1,6 @@
 package com.fatec.agis.persistence;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -91,5 +92,17 @@ public class DisciplinaDao implements DaoSimples<Disciplina>{
 		statement.close();
 		connection.close();
 		return disciplinaId;
+	}
+	
+	public void insereFrequencia(Aluno aluno, int aulaId, int aulas) throws SQLException, ClassNotFoundException{
+		connection = SqlConnector.connect();
+		String sql = "CALL insere_frequencia(?,?,?)";
+		CallableStatement statement = connection.prepareCall(sql);
+		statement.setInt(1, aulaId);
+		statement.setString(2, aluno.getRa());
+		statement.setInt(3, aulas);
+		statement.execute();
+		statement.close();
+		connection.close();
 	}
 }

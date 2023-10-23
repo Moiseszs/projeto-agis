@@ -11,6 +11,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" defer></script>
 </head>
 <body class="">
+	<nav>
+		<a href="/">
+			<h2>AGIS</h2>
+		</a>
+	</nav>
 	<div class="container fluid">
 	<form action="listarAlunos" method="GET">
 		Disciplina: 
@@ -36,7 +41,7 @@
 					<tr>
 						<td><c:out value="${aluno.nome }"></c:out></td>
 						<td><input type="hidden" name="ra" value="${aluno.ra }" /></td>
-						<input type="hidden" name="disciplinaId" value="<c:out value='${aluno.ra }' />" />
+						<input type="hidden" name="disciplinaId" value="<c:out value='${disciplina.id }' />" />
 						<td><input type="number" name="aulas" min="0" max="${disciplina.aulasHora }" required/></td>
 					</tr>
 					

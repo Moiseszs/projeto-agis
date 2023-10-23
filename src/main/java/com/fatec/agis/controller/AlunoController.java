@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fatec.agis.model.Aluno;
 import com.fatec.agis.model.Curso;
 import com.fatec.agis.model.Disciplina;
-import com.fatec.agis.model.Frequencia;
+import com.fatec.agis.model.Historico;
 import com.fatec.agis.persistence.AlunoDao;
 import com.fatec.agis.persistence.CursoDao;
 import com.fatec.agis.persistence.DisciplinaDao;
@@ -148,10 +148,42 @@ public class AlunoController {
 			for(Integer aula : aulas) {
 				Aluno aluno = new Aluno();
 				aluno.setRa(ra);
-				
+				try {
+					disciplinaDao.insereFrequencia(aluno, aulaId, aula);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+					return "erro";
+				}
 			}
 		}
 		return "redirect:/";
+	}
+	
+	@GetMapping("/historico")
+	public String getHistorico(Model model) {
+		List<Aluno> alunos = new ArrayList<Aluno>();
+		try {
+			alunos = alunoDao.listar();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("alunos", alunos);
+		return "historico";
+	}
+	
+	
+	@PostMapping("/historico")
+	public String postHistorico(@ModelAttribute("ra") String ra, Model model) {
+		Aluno aluno = new Aluno();
+		aluno.setRa(ra);
+		List<Historico> historicos = new ArrayList<Historico>();
+		try {
+			historicos = alunoDao.listaHistorico(aluno);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("historicos", historicos);
+		return "historico";
 	}
 	
 }

@@ -11,7 +11,12 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" defer></script>
 <title>Matricular Disciplinas </title>
 </head>
-<body>
+<body class="container">
+	<nav>
+		<a href="/">
+			<h2>AGIS</h2>
+		</a>
+	</nav>
 	<form action="listaDisciplinas" method="GET">
 		<label>Aluno: </label>
 		<select name="ra">
@@ -24,12 +29,17 @@
 		<input type="submit" value="Listar"/>
 	</form>
 		
-	<form action="matricula" method="POST" class="row form">
+	<form action="matricula" method="POST" class="grid row">
 		<input type="hidden" name="ra" value="<c:out value='${aluno.ra }' />"/>
 		<c:forEach var="disciplina" items="${disciplinas }">
-			<c:out value="${disciplina.nome }"></c:out>
-			<c:out value="${disciplina.diaSemana }"></c:out>
-			<input type="checkbox" name="id" value="<c:out value='${disciplina.id }'/>"/>
+				<div class="row">
+					<div>
+						<c:out value="${disciplina.nome }"></c:out></h4>
+						<input type="checkbox" name="id" value="<c:out value='${disciplina.id }'/>"/>
+					</div>
+					
+				<c:out value="${disciplina.diaSemana }"></c:out></h4>
+				</div>
 		</c:forEach>
 		<input type="submit" />
 	</form>

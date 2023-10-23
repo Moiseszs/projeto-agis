@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fatec.agis.model.Aluno;
 import com.fatec.agis.model.Disciplina;
+import com.fatec.agis.model.Historico;
 
 @Repository
 public class AlunoDao implements Dao<Aluno> {
@@ -67,7 +68,7 @@ public class AlunoDao implements Dao<Aluno> {
 	
 	public void matricularDisciplina(Aluno aluno, Disciplina disciplina) throws SQLException, ClassNotFoundException{
 		connection = SqlConnector.connect();
-		String sql = "EXEC adiciona_disciplina(?, ?)";
+		String sql = "CALL adiciona_disciplina(?, ?)";
 		CallableStatement statement = connection.prepareCall(sql);
 		statement.setString(1, aluno.getRa());
 		statement.setInt(2, disciplina.getId());
@@ -87,7 +88,28 @@ public class AlunoDao implements Dao<Aluno> {
 			aluno.setNome(res.getString("aluno_nome"));
 			alunos.add(aluno);
 		}
+		statement.close();
+		connection.close();
 		return alunos;
+	}
+	
+	public List<Historico> listaHistorico(Aluno aluno) throws ClassNotFoundException, SQLException{
+		connection = SqlConnector.connect();
+		String sql = "SELECT codigoDisciplina, nomeDisciplina, professor, notaFinal, qtdeFaltas FROM consulta_historico(?)";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, aluno.getRa());
+		ResultSet res = statement.executeQuery();
+		List<Historico> historicos = new ArrayList<Historico>();
+		while(res.next()) {
+			Historico historico = new Historico();
+			historico.setCodigoDisciplina(res.getInt("codigoDisciplina"));
+			historico.setNomeDisciplina(res.getString("nomeDisciplina"));
+			historico.setProfessor(res.getString("professor"));
+			historico.setNotaFinal(res.getFloat("notaFinal"));
+			historico.setQtdeFaltas(res.getInt("qtdeFaltas"));
+			historicos.add(historico);
+		}
+		return historicos;
 	}
 	
 }

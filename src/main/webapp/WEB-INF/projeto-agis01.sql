@@ -64,10 +64,11 @@ CREATE TABLE aula(
 )
 
 CREATE TABLE frequencia(
+	id INT IDENTITY(10001, 1),
 	aula_id INT,
 	aluno_ra VARCHAR(09),
 	aulas INT,
-	PRIMARY KEY(aula_id, aluno_ra),
+	PRIMARY KEY(id),
 	FOREIGN KEY(aula_id) REFERENCES aula(id),
 	FOREIGN KEY(aluno_ra) REFERENCES aluno(ra)
 )
@@ -254,8 +255,17 @@ notaFinal DECIMAL(4,2),
 qtdeFaltas INT)
 AS
 BEGIN
-	SELECT ''
+	INSERT INTO @historico 
+	SELECT disciplina.id, disciplina.nome, disciplina.professor, matricula_disciplina.nota_final,SUM(frequencia.aulas) AS qtdeFaltas FROM aluno, aula, frequencia, disciplina, matricula_disciplina
+	WHERE aluno.ra = frequencia.aluno_ra AND aula.id = frequencia.aula_id
+	AND disciplina.id = aula.disciplina_id
+	AND aluno.ra = matricula_disciplina.aluno_ra AND matricula_disciplina.disciplina_id = disciplina.id
+	AND aluno.ra = @ra
+	GROUP BY aluno.nome,disciplina.id, matricula_disciplina.nota_final,disciplina.professor,disciplina.nome 
+	RETURN
 END
+
+SELECT * FROM frequencia
 
 
 CREATE PROCEDURE insere_aula(@disciplinaId INT, @id INT)
@@ -271,5 +281,24 @@ CREATE PROCEDURE insere_frequencia(@aulaId INT, @alunoRa VARCHAR(09), @aulas INT
 AS
 BEGIN
 	INSERT INTO frequencia(aula_id, aluno_ra, aulas) VALUES (@aulaId, @alunoRa, @aulas)
-
 END
+
+CREATE TRIGGER matricula_disciplinas_primeiro_semestre ON aluno
+AFTER INSERT
+AS
+	BEGIN
+	DECLARE @id INT
+	DECLARE @ra VARCHAR(09)
+	SET @ra = (SELECT ra FROM inserted)
+	DECLARE csr CURSOR FOR SELECT id FROM disciplina WHERE semestre = 1
+
+	OPEN csr
+	FETCH NEXT FROM csr INTO @id
+	WHILE @@FETCH_STATUS = 0 BEGIN
+		EXEC adiciona_disciplina @ra, @id
+		FETCH NEXT FROM csr INTO @id
+		END
+	CLOSE csr
+	END
+
+

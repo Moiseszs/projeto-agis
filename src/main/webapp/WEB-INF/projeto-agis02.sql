@@ -43,6 +43,21 @@ WHERE disciplina.id NOT IN (SELECT disciplina_id FROM matricula_disciplina, matr
 AND disciplina.id IN (SELECT disciplina.id FROM disciplina, matricula, curso WHERE matricula.curso_codigo = curso.codigo AND matricula.aluno_ra = ''
 AND matricula.curso_codigo = disciplina.curso_codigo)
 
-INSERT INTO disciplina VALUES (1, 'Programação Linear', 'Terça-feira','SEBASTIÃO', '14:50:00', 4, 5)
+INSERT INTO disciplina VALUES (1, 'Banco de Dados','LEANDRO','Terça-feira', '14:50:00', 4, 4)
 
 SELECT * FROM consulta_disciplinas('202322323')
+
+SELECT disciplina.id, disciplina.professor, matricula_disciplina.nota_final,SUM(frequencia.aulas) AS qtdeFaltas FROM aluno, aula, frequencia, disciplina, matricula_disciplina
+WHERE aluno.ra = frequencia.aluno_ra AND aula.id = frequencia.aula_id
+AND disciplina.id = aula.disciplina_id
+AND aluno.ra = matricula_disciplina.aluno_ra AND matricula_disciplina.disciplina_id = disciplina.id
+GROUP BY disciplina.id, matricula_disciplina.nota_final,disciplina.professor, aluno.nome
+
+
+SELECT * FROM matricula_disciplina, disciplina
+
+SELECT * FROM consulta_historico('202322323')
+
+
+INSERT INTO disciplina VALUES (1, 'Logica de Programação','SATOSHI','Segunda-Feira', '14:50:00', 4, 1)
+INSERT INTO disciplina VALUES (1, 'Arquitetura de Computadores','COLEVATI','Quarta-Feira', '14:50:00', 4, 1)

@@ -13,45 +13,59 @@
 </head>
 <body>
 	<nav>
-		<h2>AGIS</h2>
+		<a href="/">
+			<h2>AGIS</h2>
+		</a>
 	</nav>
-	
 	<form action="novoaluno" method="POST" class="container grid">
-		<label>CPF: </label>
+		<div class="form-group">
+			<label>CPF: </label>
 		<input type="text" name="cpf"/>
 	
 		<label>Nome: </label>
 		<input type="text" name="nome"/>
+		</div>
 		
-		<label>Nome Social: </label>
-		<input type="text" name="nomeSocial" />
+		<div class="form-group">
+			<label>Nome Social: </label>
+			<input type="text" name="nomeSocial" />
 		
-		<label>Data de Nascimento</label>
-		<input type="date" name="dataNascimento" />
+			<label>Data de Nascimento</label>
+			<input type="date" name="dataNascimento" />	
+		</div>
 		
-		<label>Telefone 1: </label>	
-		<input type="text" name="telefone" />
+		<div class="form=-group">
+			<label>Telefone 1: </label>	
+			<input type="text" name="telefone" />
 		
-		<label>Telefone 2: </label>
-		<input type="text" name="telefone" />
+			<label>Telefone 2: </label>
+			<input type="text" name="telefone" />
+		</div>
 		
-		<label>Email Pessoal: </label>
+		<div class="form-group">
+			<label>Email Pessoal: </label>
 		<input type="text" name="emailPessoal" />
 		
 		<label>Email Corporativo: </label>
 		<input type="text" name="emailCorporativo" />
+		</div>
 		
-		<label>Data de Conclusão Segundo Grau</label>
+		<div class="form-group">
+			<label>Data de Conclusão Segundo Grau</label>
 		<input type="date" name="dataConclusaoSegundoGrau" />
 		
 		<label>Instituição Segundo Grau</label>
 		<input type="text" name="instituicaoSegundoGrau" />
+		</div>
 		
-		<label>Pontuação</label>
+		<div class="form-group">
+			<label>Pontuação</label>
 		<input type="number" name="pontuacao" />
 		
 		<label>Posição</label>
 		<input type="number" name="posicao" />
+		</div>
+		
 	
 	
 	

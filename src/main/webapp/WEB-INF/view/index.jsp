@@ -10,6 +10,25 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" defer></script>
 </head>
 <body>
-	Esse é o index
+	<nav>
+			<h2>AGIS</h2>
+	</nav>
+	<div class="p-2">
+		<div>
+			<a href="novoaluno" >Inserir Novo Aluno</a>
+		</div>
+		<div>
+			<a href="matricula" >Matricular Disciplina</a>
+		</div>
+		<div>
+			<a href="chamada" >Realizar Chamada</a>
+		</div>
+		
+		<div>
+			<a href="historico" >Consultar Historico</a>
+		</div>
+		
+	</div>
+	
 </body>
 </html>
