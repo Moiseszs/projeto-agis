@@ -1,6 +1,6 @@
-CREATE DATABASE DbAgis_teste01
+CREATE DATABASE DbAgis
 GO
-USE DbAgis_teste01
+USE DbAgis
 GO
 CREATE TABLE aluno(
 	ra VARCHAR(09),

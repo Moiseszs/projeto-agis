@@ -1,4 +1,4 @@
-USE DbAgis_teste01
+USE DbAgis
 
 INSERT curso VALUES ('Analise e Desenvolvimento de Sistemas', 1800, 'ADS', 4.5)
 SELECT * from curso
@@ -43,7 +43,7 @@ WHERE disciplina.id NOT IN (SELECT disciplina_id FROM matricula_disciplina, matr
 AND disciplina.id IN (SELECT disciplina.id FROM disciplina, matricula, curso WHERE matricula.curso_codigo = curso.codigo AND matricula.aluno_ra = ''
 AND matricula.curso_codigo = disciplina.curso_codigo)
 
-INSERT INTO disciplina VALUES (1, 'Banco de Dados','LEANDRO','Terça-feira', '14:50:00', 4, 4)
+INSERT INTO disciplina VALUES (1, 'Banco de Dados','LEANDRO','Terï¿½a-feira', '14:50:00', 4, 4)
 
 SELECT * FROM consulta_disciplinas('202322323')
 
@@ -59,5 +59,5 @@ SELECT * FROM matricula_disciplina, disciplina
 SELECT * FROM consulta_historico('202322323')
 
 
-INSERT INTO disciplina VALUES (1, 'Logica de Programação','SATOSHI','Segunda-Feira', '14:50:00', 4, 1)
+INSERT INTO disciplina VALUES (1, 'Logica de Programaï¿½ï¿½o','SATOSHI','Segunda-Feira', '14:50:00', 4, 1)
 INSERT INTO disciplina VALUES (1, 'Arquitetura de Computadores','COLEVATI','Quarta-Feira', '14:50:00', 4, 1)
